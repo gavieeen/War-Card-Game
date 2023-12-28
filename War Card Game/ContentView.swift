@@ -15,6 +15,8 @@ struct ContentView: View {
     @State var playerScore = 0
     @State var cpuScore = 0
     
+    @State var winner = ""
+    
     var body: some View {
         
         ZStack {
@@ -40,6 +42,13 @@ struct ContentView: View {
                 }, label: {
                     Image("button")
                 })
+                
+                Spacer()
+                
+                Text(winner)
+                    .font(.largeTitle)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 HStack {
@@ -84,6 +93,13 @@ struct ContentView: View {
         }
         else if cCardValue > pCardValue {
             cpuScore += 1
+        }
+        winner = ""
+        
+        if cpuScore >= 10 || playerScore >= 10 {
+            cpuScore = 0
+            playerScore = 0
+            winner = cpuScore >= 10 ? "CPU Wins" : "Player Wins"
         }
     }
     
